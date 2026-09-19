@@ -1,0 +1,311 @@
+/* ============ RESET ============ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --deep: #021b2e;
+  --mid: #064663;
+  --light: #0a8ea8;
+  --sand: #c2a878;
+  --text: #e6f7ff;
+  --muted: #7fb8c9;
+}
+
+html, body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: var(--deep);
+  color: var(--text);
+}
+
+/* ============ HEADER ============ */
+.header {
+  text-align: center;
+  padding: 40px 20px 20px;
+  position: relative;
+  z-index: 10;
+}
+
+.header h1 {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 8px;
+}
+
+.header h1 span {
+  background: linear-gradient(135deg, #4fd1c5, #22d3ee, #38bdf8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.header p {
+  color: var(--muted);
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+/* ============ AQUARIUM ============ */
+.aquarium {
+  position: relative;
+  width: min(95vw, 900px);
+  height: min(70vh, 550px);
+  margin: 30px auto;
+  border-radius: 20px;
+  overflow: hidden;
+  background: linear-gradient(180deg,
+    #0a8ea8 0%,
+    #064663 40%,
+    #021b2e 100%);
+  box-shadow:
+    0 0 60px rgba(10, 142, 168, 0.3),
+    inset 0 0 100px rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(79, 209, 197, 0.3);
+  z-index: 5;
+}
+
+/* ============ LIGHT RAYS ============ */
+.light-rays {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: linear-gradient(180deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    transparent 60%);
+  pointer-events: none;
+  animation: rayShift 8s ease-in-out infinite;
+}
+
+.light-rays::before,
+.light-rays::after {
+  content: '';
+  position: absolute;
+  top: -10%;
+  width: 80px;
+  height: 120%;
+  background: linear-gradient(180deg,
+    rgba(255, 255, 255, 0.1),
+    transparent);
+  transform: rotate(15deg);
+  filter: blur(15px);
+}
+
+.light-rays::before { left: 20%; animation: rayFloat 6s ease-in-out infinite; }
+.light-rays::after  { left: 65%; animation: rayFloat 6s ease-in-out infinite 2s; }
+
+@keyframes rayShift {
+  0%, 100% { opacity: 0.6; }
+  50%      { opacity: 1; }
+}
+
+@keyframes rayFloat {
+  0%, 100% { transform: rotate(15deg) translateX(0); }
+  50%      { transform: rotate(15deg) translateX(30px); }
+}
+
+/* ============ SEAWEED ============ */
+.seaweed {
+  position: absolute;
+  bottom: 60px;
+  width: 12px;
+  background: linear-gradient(180deg,
+    #2d7a4a 0%,
+    #1a4d2e 100%);
+  border-radius: 50% 50% 0 0;
+  transform-origin: bottom center;
+  animation: sway 4s ease-in-out infinite;
+  opacity: 0.85;
+}
+
+.seaweed-1 { left: 8%;  height: 120px; animation-delay: 0s;   }
+.seaweed-2 { left: 18%; height: 90px;  animation-delay: 0.8s; }
+.seaweed-3 { left: 78%; height: 140px; animation-delay: 0.4s; }
+.seaweed-4 { left: 88%; height: 100px; animation-delay: 1.2s; }
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-8deg); }
+  50%      { transform: rotate(8deg); }
+}
+
+/* ============ FISH ============ */
+.fish {
+  position: absolute;
+  width: 50px;
+  height: 22px;
+  border-radius: 50% 40% 40% 50% / 60% 60% 40% 40%;
+  animation: swim linear infinite;
+  z-index: 6;
+  box-shadow: 0 0 15px rgba(255, 200, 100, 0.3);
+}
+
+.fish .tail {
+  position: absolute;
+  right: -14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 16px solid currentColor;
+  opacity: 0.85;
+  animation: tailWiggle 0.4s ease-in-out infinite alternate;
+}
+
+.fish .eye {
+  position: absolute;
+  left: 10px;
+  top: 7px;
+  width: 6px;
+  height: 6px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: inset 1px 0 0 #000;
+}
+
+@keyframes tailWiggle {
+  from { transform: translateY(-50%) rotate(-10deg); }
+  to   { transform: translateY(-50%) rotate(10deg); }
+}
+
+@keyframes swim {
+  from { transform: translateX(-80px) scaleX(1); }
+  to   { transform: translateX(calc(100% + 900px)) scaleX(1); }
+}
+
+/* Fish 1 — Orange */
+.fish-1 {
+  top: 25%;
+  color: #ff8c42;
+  background: linear-gradient(135deg, #ffb87a, #ff8c42);
+  animation-duration: 14s;
+  animation-delay: 0s;
+}
+
+/* Fish 2 — Cyan */
+.fish-2 {
+  top: 45%;
+  color: #4fd1c5;
+  background: linear-gradient(135deg, #7ce8dc, #4fd1c5);
+  animation-duration: 18s;
+  animation-delay: 2s;
+  width: 40px;
+  height: 18px;
+}
+
+/* Fish 3 — Yellow */
+.fish-3 {
+  top: 65%;
+  color: #ffd93d;
+  background: linear-gradient(135deg, #ffe98a, #ffd93d);
+  animation-duration: 22s;
+  animation-delay: 5s;
+  width: 55px;
+  height: 24px;
+}
+
+/* Fish 4 — Pink */
+.fish-4 {
+  top: 35%;
+  color: #ff6b9d;
+  background: linear-gradient(135deg, #ff9bc1, #ff6b9d);
+  animation-duration: 16s;
+  animation-delay: 8s;
+  width: 35px;
+  height: 16px;
+}
+
+/* Fish 5 — Purple */
+.fish-5 {
+  top: 55%;
+  color: #a78bfa;
+  background: linear-gradient(135deg, #c4b5fd, #a78bfa);
+  animation-duration: 20s;
+  animation-delay: 3s;
+  width: 45px;
+  height: 20px;
+}
+
+/* ============ BUBBLES ============ */
+.bubble {
+  position: absolute;
+  bottom: 60px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%,
+    rgba(255, 255, 255, 0.6),
+    rgba(255, 255, 255, 0.1));
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  animation: rise linear infinite;
+  z-index: 4;
+}
+
+@keyframes rise {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% { opacity: 1; }
+  100% {
+    transform: translateY(-500px) translateX(20px);
+    opacity: 0;
+  }
+}
+
+.bubble-1 { left: 15%; width: 10px; height: 10px; animation-duration: 6s;  animation-delay: 0s;   }
+.bubble-2 { left: 35%; width: 6px;  height: 6px;  animation-duration: 8s;  animation-delay: 1.5s; }
+.bubble-3 { left: 55%; width: 14px; height: 14px; animation-duration: 7s;  animation-delay: 3s;   }
+.bubble-4 { left: 70%; width: 8px;  height: 8px;  animation-duration: 9s;  animation-delay: 0.5s; }
+.bubble-5 { left: 85%; width: 12px; height: 12px; animation-duration: 6.5s; animation-delay: 4s;  }
+.bubble-6 { left: 45%; width: 5px;  height: 5px;  animation-duration: 10s; animation-delay: 2s;   }
+
+/* ============ SAND ============ */
+.sand {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(180deg,
+    #c2a878 0%,
+    #8b7349 100%);
+  border-radius: 50% 50% 0 0 / 20px 20px 0 0;
+  box-shadow: inset 0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.sand::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 10%;
+  width: 40px;
+  height: 8px;
+  background: #a08b5f;
+  border-radius: 50%;
+  box-shadow:
+    120px 4px 0 #a08b5f,
+    280px 0 0 #a08b5f,
+    420px 6px 0 #a08b5f,
+    600px 2px 0 #a08b5f;
+}
+
+/* ============ FOOTER ============ */
+.footer {
+  text-align: center;
+  padding: 30px 20px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 600px) {
+  .aquarium {
+    height: 60vh;
+    border-radius: 12px;
+  }
+  .fish { width: 35px; height: 16px; }
+  .seaweed { width: 8px; }
+  .header h1 { font-size: 1.5rem; }
+}
